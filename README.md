@@ -11,6 +11,9 @@ This is a simple two-player territory brick breaker written with **pygame**.
 - The board shows only the colored zones with no separating grid lines.
 - When a ball strikes a paddle, the bounce angle depends on where it hit and
   includes a bit of randomness for variety.
+- A scoreboard at the top shows how many cells each player owns.
+- The game ends when one player controls the entire board.
+- Press **P** to pause/resume, **R** to restart, and **Esc** to quit.
 
 ## Running
 
