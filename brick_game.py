@@ -24,6 +24,7 @@ BALL_SPEED = 4
 def main() -> None:
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("AI Brick Game")
     clock = pygame.time.Clock()
 
     # Border position for each row (last column owned by player 1)

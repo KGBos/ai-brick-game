@@ -9,6 +9,8 @@ This is a simple two-player territory brick breaker written with **pygame**.
 - Balls cannot cross the center line. When a ball hits the opponent's colored squares along the border it converts them to the player's color, expanding territory.
 - The objective is to push the border deep into the opponent's zone.
 - The board shows only the colored zones with no separating grid lines.
+- When a ball strikes a paddle, the bounce angle depends on where it hit and
+  includes a bit of randomness for variety.
 
 ## Running
 
