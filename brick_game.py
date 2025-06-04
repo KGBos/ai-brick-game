@@ -14,6 +14,7 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 PADDLE_LENGTH_CELLS = 4
+
 # Make paddles thicker
 PADDLE_THICKNESS = 20
 # Ball size equal to one grid cell
@@ -148,7 +149,6 @@ def main() -> None:
                 pygame.draw.rect(
                     screen, color, (c * CELL_SIZE, r * CELL_SIZE, CELL_SIZE, CELL_SIZE)
                 )
-
 
         pygame.draw.rect(
             screen,
