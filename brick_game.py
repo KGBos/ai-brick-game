@@ -1,4 +1,5 @@
 import pygame
+import random
 
 # Constants
 GRID_SIZE = 20
@@ -13,14 +14,18 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
 PADDLE_LENGTH_CELLS = 4
-PADDLE_THICKNESS = 10
-BALL_RADIUS = 5
+
+# Make paddles thicker
+PADDLE_THICKNESS = 20
+# Ball size equal to one grid cell
+BALL_RADIUS = CELL_SIZE // 2
 BALL_SPEED = 4
 
 
 def main() -> None:
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("AI Brick Game")
     clock = pygame.time.Clock()
 
     # Border position for each row (last column owned by player 1)
@@ -82,7 +87,16 @@ def main() -> None:
             and paddle1_y <= ball1_y <= paddle1_y + PADDLE_LENGTH_CELLS * CELL_SIZE
         ):
             ball1_x = PADDLE_THICKNESS + BALL_RADIUS
+            offset = (
+                (ball1_y - (paddle1_y + PADDLE_LENGTH_CELLS * CELL_SIZE / 2))
+                / (PADDLE_LENGTH_CELLS * CELL_SIZE / 2)
+            )
+            offset += random.uniform(-0.1, 0.1)
             ball1_vx = abs(ball1_vx)
+            ball1_vy = offset * BALL_SPEED
+            norm = (ball1_vx ** 2 + ball1_vy ** 2) ** 0.5
+            ball1_vx = BALL_SPEED * ball1_vx / norm
+            ball1_vy = BALL_SPEED * ball1_vy / norm
         if ball1_x - BALL_RADIUS <= 0:
             ball1_x = BALL_RADIUS
             ball1_vx = abs(ball1_vx)
@@ -106,7 +120,16 @@ def main() -> None:
             and paddle2_y <= ball2_y <= paddle2_y + PADDLE_LENGTH_CELLS * CELL_SIZE
         ):
             ball2_x = WIDTH - PADDLE_THICKNESS - BALL_RADIUS
+            offset = (
+                (ball2_y - (paddle2_y + PADDLE_LENGTH_CELLS * CELL_SIZE / 2))
+                / (PADDLE_LENGTH_CELLS * CELL_SIZE / 2)
+            )
+            offset += random.uniform(-0.1, 0.1)
             ball2_vx = -abs(ball2_vx)
+            ball2_vy = offset * BALL_SPEED
+            norm = (ball2_vx ** 2 + ball2_vy ** 2) ** 0.5
+            ball2_vx = BALL_SPEED * ball2_vx / norm
+            ball2_vy = BALL_SPEED * ball2_vy / norm
         if ball2_x + BALL_RADIUS >= WIDTH:
             ball2_x = WIDTH - BALL_RADIUS
             ball2_vx = -abs(ball2_vx)
@@ -126,11 +149,6 @@ def main() -> None:
                 pygame.draw.rect(
                     screen, color, (c * CELL_SIZE, r * CELL_SIZE, CELL_SIZE, CELL_SIZE)
                 )
-        # Grid lines
-        for r in range(GRID_SIZE + 1):
-            pygame.draw.line(screen, BLACK, (0, r * CELL_SIZE), (WIDTH, r * CELL_SIZE))
-        for c in range(GRID_SIZE + 1):
-            pygame.draw.line(screen, BLACK, (c * CELL_SIZE, 0), (c * CELL_SIZE, HEIGHT))
 
         pygame.draw.rect(
             screen,
